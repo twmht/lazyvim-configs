@@ -28,7 +28,8 @@ return {
   },
 
   -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
+  -- { "folke/trouble.nvim", enabled = false },
+
 
   -- override nvim-cmp and add cmp-emoji
   {
@@ -251,4 +252,13 @@ return {
       vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
     end
   },
+  {
+    'lewis6991/gitsigns.nvim',
+    lazy=false
+
+  },
+  {
+    "roxma/vim-tmux-clipboard",
+    lazy=false
+  }
 }
