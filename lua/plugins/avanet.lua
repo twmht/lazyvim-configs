@@ -5,23 +5,33 @@ return {
 	opts = {
 		-- add any opts here
 		-- for example
-		provider = "gemini",
+		provider = "vertex",
 		providers = {
-			gemini = {
-				model = "gemini-2.5-flash-preview-05-20", -- your desired model (or use gpt-4o, etc.)
+			vertex = {
+				model = "gemini-2.5-flash",
 				extra_request_body = {
-					timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+					generationConfig = {
+						temperature = 0.75,
+						-- 其他 generation 配置
+					},
+				},
+			},
+			azure = {
+				endpoint = "https://apis.openai.azure.com/", -- example: "https://<your-resource-name>.openai.azure.com"
+				deployment = "gpt-4.1-nano", -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
+				api_version = "2024-12-01-preview",
+				timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+				extra_request_body = {
 					temperature = 0.75,
-					api_version = "2024-12-01-preview",
-					max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-					--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+					max_completion_tokens = 20480, -- Increase this to include reasoning tokens (for reasoning models)
+					reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
 				},
 			},
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-	build = "make",
-	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+	build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+		or "make",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-lua/plenary.nvim",
