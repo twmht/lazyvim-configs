@@ -2,10 +2,12 @@ local M = {}
 
 local g = vim.g
 
--- use this for more https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow or https://textfancy.com/text-art/
--- you may need to adjust the padding on the headers to fit your screen mostly the vertical padding as done on the first header
+-- use this for more https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow
+-- or https://textfancy.com/text-art/
+-- you may need to adjust the padding on the headers to fit your screen
+-- mostly the vertical padding as done on the first header
 local headers = {
-  [[         __                        ___________________________________
+	[[         __                        ___________________________________
          _( _)_                     /    I know Beethoven was great,    \
         ( _) ( )            _____  |      but do you have to say it      |
        (_)    (_)          @@@@@@@ |  every day on rec.music.classical?  |
@@ -16,7 +18,7 @@ local headers = {
   |*****|__ |____________| \    |  /    \##    __--"""i i""""""""""i
    \*(#####)  ||      ||    \___|____/\__##   !_______! !__________!
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""]],
-  [[
+	[[
     ███╗   ██╗ ███████╗  ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗
     ████╗  ██║ ██╔════╝ ██╔═══██╗ ██║   ██║ ██║ ████╗ ████║
     ██╔██╗ ██║ █████╗   ██║   ██║ ██║   ██║ ██║ ██╔████╔██║
@@ -24,14 +26,14 @@ local headers = {
     ██║ ╚████║ ███████╗ ╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║
     ╚═╝  ╚═══╝ ╚══════╝  ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝
     ]],
-  [[
+	[[
          ▄████▄        ▒▒▒▒▒    ▒▒▒▒▒    ▒▒▒▒▒    ▒▒▒▒▒ ﾠ
         ███▄█▀        ▒ ▄▒ ▄▒  ▒ ▄▒ ▄▒  ▒ ▄▒ ▄▒  ▒ ▄▒ ▄▒ﾠ
        ▐████  █  █    ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒ﾠ
         █████▄        ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒ﾠ
           ████▀       ▒ ▒ ▒ ▒  ▒ ▒ ▒ ▒  ▒ ▒ ▒ ▒  ▒ ▒ ▒ ▒ﾠ
     ]],
-  [[
+	[[
                                      ██
                                     ░░
   ███████   █████   ██████  ██    ██ ██ ██████████
@@ -41,7 +43,7 @@ local headers = {
   ███  ░██░░██████░░██████   ░░██   ░██ ███ ░██ ░██
  ░░░   ░░  ░░░░░░  ░░░░░░     ░░    ░░ ░░░  ░░  ░░
     ]],
-  [[
+	[[
     ┏━━━┓┏━━━┓┏━━━┓┏┓━┏┓━━━━━━━━━━━┏━━┓━┏━━━━┓┏┓┏┓┏┓
     ┃┏━┓┃┃┏━┓┃┃┏━┓┃┃┃━┃┃━━━━━━━━━━━┃┏┓┃━┃┏┓┏┓┃┃┃┃┃┃┃
     ┃┃━┃┃┃┗━┛┃┃┃━┗┛┃┗━┛┃━━━━━━━━━━━┃┗┛┗┓┗┛┃┃┗┛┃┃┃┃┃┃
@@ -52,7 +54,7 @@ local headers = {
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ]],
-  [[
+	[[
 ================================================.
      .-.   .-.     .--.                         |
     | OO| | OO|   / _.-' .-.   .-.  .-.   .''.  |
@@ -65,7 +67,7 @@ local headers = {
                |  '-'  |                |  '-'  |
 ==============='       '================'       |
     ]],
-  [[
+	[[
                                                                         ﾠ
           ████ ██████           █████      ██                     ﾠ
          ███████████             █████                             ﾠ
@@ -75,7 +77,7 @@ local headers = {
      ███████████ ███    ███ █████████ █████ █████ ████ █████  ﾠ
     ██████  █████████████████████ ████ █████ █████ ████ ██████ ﾠ
 ]],
-  [[
+	[[
            ____                                         ﾠ
           /___/\_                                       ﾠ
          _\   \/_/\__                     __            ﾠ
@@ -87,7 +89,7 @@ local headers = {
         \_\/_/\       /_\_\/                            ﾠ
            \_\/       \_\/                              ﾠ
 ]],
-  [[
+	[[
      ★　✯   🛸                    🪐   .°•    |    ﾠ
         __     ° ⭐　•       🛰️       __     / \   ﾠ
        / /   ____ ___  ______  _____/ /_    | O |  ﾠ
@@ -96,7 +98,7 @@ local headers = {
     /_____/\__,_/\__,_/_/ /_/\___/_/ /_/  /_(.|.)_\ﾠ
 ]],
 
-  [[      🛸　　　 　🌎　°　　🌓　•　　.°•　　　🚀 ✯
+	[[      🛸　　　 　🌎　°　　🌓　•　　.°•　　　🚀 ✯
   　　　  ⭐　*　　　　　°　　　　🛰️ 　°·      🪐
     .　　　•　° ★　•  ☄
 
@@ -107,18 +109,18 @@ local headers = {
 
 -- Dashboard logo
 function M.dashboard()
-  math.randomseed(os.time())
-  local logo = headers[1]
+	math.randomseed(os.time())
+	local logo = headers[1]
 
-  if g.random_banner then
-    logo = headers[math.random(#headers)]
-  end
+	if g.random_banner then
+		logo = headers[math.random(#headers)]
+	end
 
-  -- add padding to the top and bottom of the logo
-  logo = string.rep("\n", 2) .. logo .. "\n"
-  logo = logo .. "  " .. "[ @" .. (g.github_username or "rubiin") .. " ]" .. "\n\n"
+	-- add padding to the top and bottom of the logo
+	logo = string.rep("\n", 2) .. logo .. "\n"
+	logo = logo .. "  " .. "[ @" .. (g.github_username or "rubiin") .. " ]" .. "\n\n"
 
-  return logo
+	return logo
 end
 
 return M
