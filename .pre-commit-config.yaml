@@ -16,3 +16,7 @@ repos:
     rev: 1.17.0
     hooks:
       - id: yamlfix
+  - repo: https://github.com/JohnnyMorganz/stylua
+    rev: v2.1.0
+    hooks:
+      - id: stylua
