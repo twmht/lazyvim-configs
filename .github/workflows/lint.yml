@@ -1,26 +1,36 @@
 ---
 name: Lint
 on:
-  push:
-    branches: [main]
+  # 只有当 Pull Request 的目标分支是 'main' 时才触发
   pull_request:
     branches: [main]
+  # 移除 push 事件，因为你只希望在 PR 到 main 时触发
 jobs:
   luacheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: jirutka/setup-alpine@v1
-        with:
-          branch: v3.16
-          packages: luacheck
-      - run: luacheck .
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Lua and Luarocks
+        # luacheck 需要 Lua 环境和 luarocks 来安装
+        run: |
+          sudo apt update
+          sudo apt install -y lua5.1 luarocks  # 根据你的 luacheck 版本需求，可能需要安装 lua5.3/lua5.4
+          # 确保 luarocks 的路径在 PATH 中
+          eval "$(luarocks path --bin)"
+      - name: Install luacheck via Luarocks
+        # 使用 luarocks 来安装 luacheck，这是官方推荐且最常见的方式
+        run: luarocks install luacheck
+      - name: Run luacheck
+        run: luacheck .
   stylua:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: JohnnyMorganz/stylua-action@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Stylua
+        uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
+          version: latest # 或者指定一个具体的版本号，例如 '0.15.0'
           args: --check .
