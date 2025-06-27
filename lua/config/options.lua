@@ -3,7 +3,7 @@
 -- Add any additional options here
 --
 --
-if vim.fn.has("mac") then
+if vim.fn.has("mac") == 1 then
 	vim.g.clipboard = {
 		name = "macOS-clipboard",
 		copy = {
@@ -37,6 +37,32 @@ elseif vim.fn.executable("tmux") == 1 then
 			end
 		end,
 	})
+elseif vim.fn.executable("xclip") == 1 then
+	vim.g.clipboard = {
+		name = "xclip",
+		copy = {
+			["+"] = "xclip -selection clipboard",
+			["*"] = "xclip -selection primary",
+		},
+		paste = {
+			["+"] = "xclip -selection clipboard -o",
+			["*"] = "xclip -selection primary -o",
+		},
+	}
+elseif vim.fn.executable("wl-copy") == 1 then
+	vim.g.clipboard = {
+		name = "wl-copy",
+		copy = {
+			["+"] = "wl-copy",
+			["*"] = "wl-copy",
+		},
+		paste = {
+			["+"] = "wl-paste",
+			["*"] = "wl-paste",
+		},
+	}
+else
+	print("No suitable clipboard found, using default Neovim clipboard")
 end
 
 vim.opt.relativenumber = false
