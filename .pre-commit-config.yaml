@@ -20,3 +20,21 @@ repos:
     rev: v2.1.0
     hooks:
       - id: stylua
+  - repo: local  # 使用 local repo 来定义一个自定义 hook
+    hooks:
+      - id: luacheck
+        name: luacheck
+        entry: luacheck
+        language: system  # 或者 'lua'，但 'system' 更灵活，因为它依赖于系统中的 luarocks
+        types: [lua]  # 只对 Lua 文件运行
+        pass_filenames: true  # 将文件名作为参数传递给 luacheck
+        # 安装 luacheck 的依赖（如果它不在 pre-commit 的环境中）
+        # external_dependencies:
+        #   - luacheck  # 这个在 'system' language 类型下可能不起作用，因为它期望在全局 PATH 中
+        # 如果你遇到 'luacheck: command not found'，则需要确保你的环境中预先安装了 luacheck。
+        # 对于大部分用户来说，如果本地开发环境已经通过 `luarocks install luacheck` 安装了，
+        # 那么使用 language: system 就可以直接找到它。
+        # 如果你希望 pre-commit 自动安装，可以尝试以下更复杂的配置，但通常不需要：
+        # language: system
+        # entry: bash -c 'eval "$(luarocks path --bin)"; luacheck "$@"'
+        # args: ["."]  # 如果你用这种entry，args 可能需要调整
