@@ -20,7 +20,14 @@ jobs:
           eval "$(luarocks path --bin)"
       - name: Install luacheck via Luarocks
         # 使用 luarocks 来安装 luacheck，这是官方推荐且最常见的方式
-        run: luarocks install luacheck --local
+        run: |
+          luarocks install luacheck --local
+          LOCAL_LUAROCKS_BIN=$(luarocks path --bin)
+          echo "$LOCAL_LUAROCKS_BIN" >> $GITHUB_PATH
+          # 验证路径是否已添加 (可选，用于调试)
+          echo "Updated PATH for next steps:"
+          echo $PATH
+          which luacheck || echo "luacheck still not found in PATH after update attempt"  # 调试用
       - name: Run luacheck
         run: luacheck .
   stylua:
