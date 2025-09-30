@@ -105,3 +105,5 @@ vim.api.nvim_create_user_command("AvanteAddPythonFiles", add_python_files, {
 vim.keymap.set("n", "<leader>aP", add_python_files, {
 	desc = "Add all Python files to Avante",
 })
+
+vim.opt.smoothscroll = false
